@@ -1,0 +1,17 @@
+.header {
+    padding: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+
+    &_icon {
+        transition: transform 0.2s ease;
+        transform: rotate(0deg);
+    }
+
+    &_rotated {
+        transform: rotate(180deg);
+    }
+}

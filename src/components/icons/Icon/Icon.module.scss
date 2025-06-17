@@ -1,0 +1,12 @@
+.icon {
+    margin: 0;
+    fill: white;
+    stroke: white;
+    align-items: center;
+    cursor: pointer;
+
+    &__color_block {
+        fill: gray;
+        stroke: gray
+    }
+}
