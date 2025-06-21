@@ -58,16 +58,19 @@ export default class RoutesStore implements ILocalStore {
   }
 
   addmask(routes: NetRouteItemModel[]): NetRouteItemModel[] {
+    const maskToCidr: Record<string, string> = {
+      '0.0.0.0': '/0',
+      '255.255.255.0': '/24',
+      '255.255.255.128': '/25',
+      '255.255.255.255': '/32'
+    };
 
-    routes.map((item) => {
-      switch (item.mask) {
-        case '0.0.0.0':
-          !item.address.includes('/') && (item.address = item.address + '/0');
-          break;
-        case '255.255.255.0':
-          !item.address.includes('/') && (item.address = item.address + '/24')
+    routes.forEach(item => {
+      if (!item.address.includes('/') && maskToCidr[item.mask]) {
+        item.address += maskToCidr[item.mask];
       }
-    })
+    });
+
     return routes;
   }
 
@@ -82,44 +85,50 @@ export default class RoutesStore implements ILocalStore {
     }
   }
 
-  //в будущем асинхронная для получения данных с апишки
   getRoutes(): void {
     const ApiRoutes: NetRoutesApi = {
       data: [
         {
           uuid: '0',
-          address: '0.0.0.0', //добаввлять /0 из мски
+          address: '0.0.0.0',
           mask: '0.0.0.0',
           gateway: '193.0.174.1',
           interface: 'Подключение Ethernet'
         },
         {
           uuid: '1',
-          address: '10.1.30.0', //добаввлять /24 из мски
+          address: '10.1.30.0',
           mask: '255.255.255.0',
           gateway: '0.0.0.0',
           interface: 'Гостевая сеть'
         },
         {
           uuid: '2',
-          address: '192.168.1.0', //добаввлять /24 из мски
+          address: '192.168.1.0',
           mask: '255.255.255.0',
           gateway: '0.0.0.0',
           interface: 'Домашняя сеть'
         },
         {
           uuid: '3',
-          address: '192.168.10.146', //добаввлять /24 из мски
+          address: '193.0.175.0',
           mask: '255.255.255.0',
           gateway: '0.0.0.0',
-          interface: 'Домашняя сеть'
+          interface: 'Подключение Ethernet'
         },
         {
           uuid: '4',
-          address: '192.168.10.5', //добаввлять /24 из мски
-          mask: '255.255.255.0',
-          gateway: '0.0.0.0',
-          interface: 'Домашняя сеть'
+          address: '193.0.175.0',
+          mask: '255.255.255.128',
+          gateway: '193.0.175.10',
+          interface: 'Подключение Ethernet'
+        },
+        {
+          uuid: '5',
+          address: '193.0.175.22',
+          mask: '255.255.255.255',
+          gateway: '193.0.175.1',
+          interface: 'Подключение Ethernet'
         },
       ]
     };

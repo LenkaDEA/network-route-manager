@@ -19,13 +19,12 @@ const TableRoutes: React.FC = () => {
 
 
   return (
-    <table>
+    <table className={styles.table}>
       <thead>
         <tr>
           <th >
             <div className={styles.header}>
               Адрес назначения
-
               <ArrowDownIcon
                 className={`${styles.header_icon} ${(routesStore.sortField === 'address' && routesStore.sortOrder === 'desc') ? styles.header_rotated : ''}`}
                 onClick={() => handleSort('address')}

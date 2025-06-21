@@ -1,10 +1,11 @@
 .header {
-    padding: 4px;
-    display: inline-flex;
+    display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 10px;
     white-space: nowrap;
     flex-shrink: 0;
+    font-weight: 600;
 
     &_icon {
         transition: transform 0.2s ease;
@@ -13,5 +14,36 @@
 
     &_rotated {
         transform: rotate(180deg);
+    }
+}
+
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid #444;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #333;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+    th,
+    td {
+        padding: 12px 16px;
+        text-align: left;
+        border-bottom: 1px solid #444;
+    }
+
+    th {
+        background-color: #2a2a2a;
+        border-bottom: 2px solid #555;
+    }
+
+    tr:last-child td {
+        border-bottom: none;
+    }
+
+    tbody tr:hover {
+        background-color: #383838;
     }
 }
